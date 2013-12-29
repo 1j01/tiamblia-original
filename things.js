@@ -131,10 +131,11 @@ Thing = function(/*o1,o2,o3,...*/){
 entitytypes.push("Player");
 Player = function(o){
 	return new Thing({
-		stepdraw: function(ctx){
+		control: function(gamepad){
+			
 			var ix=!!keys[39]-!!keys[37]+!!keys[68]-!!keys[65];
 			var iy=!!keys[83]-!!keys[87]+!!keys[40]-!!keys[38];
-			var sm=(2+!!keys[16]*5)*2/3;
+			this.sm=(2+!!keys[16]*5)*2/3;
 			if(gamepad){
 				if(Math.abs(gamepad.axes[0])>0.08){
 					ix+=gamepad.axes[0];
@@ -148,10 +149,10 @@ Player = function(o){
 			}
 			var yo=(this.riding||this);
 			if(this.riding){
-				yo.dir += Math.min(1,Math.max(-1,ix))*sm;
+				yo.dir += Math.min(1,Math.max(-1,ix))*this.sm;
 				yo.dir *= 0.9;
 			}else{
-				this.vx += Math.min(1,Math.max(-1,ix))*sm;
+				this.vx += Math.min(1,Math.max(-1,ix))*this.sm;
 			}
 			if(fly){
 				yo.vy -= 0.55;
@@ -196,11 +197,13 @@ Player = function(o){
 					fly=!fly;
 				}
 			}
+		},
+		stepdraw: function(ctx){
 			window.startprevious=gamepad && gamepad.buttons[9];
 			
 			if(!this.riding){
-				this.vx=Math.min( 5*sm, Math.max( -5*sm, this.vx*0.9));
-				this.vy=Math.min(10,    Math.max(-10,    this.vy    ));
+				this.vx=Math.min( 5*this.sm, Math.max( -5*this.sm, this.vx*0.9));
+				this.vy=Math.min(10,         Math.max(-10,         this.vy    ));
 				this.step(ctx);
 			}
 			
@@ -383,6 +386,8 @@ Player = function(o){
 		},
 		//HAx: o&&o.x||0,
 		//HAy: o&&o.y||0,
+		sm: 0,
+		
 		w: 15,
 		h: 25,
 		rot: 0,
@@ -525,7 +530,7 @@ Tree = function(o){
 				ctx.stroke();*/
 			ctx.restore();
 		},
-		species: "kao",
+		species: "kaoyu",
 		seedi: 0,
 		trunk_w: 10+Math.floor(Math.random()*5),
 		randoms: new Uint32Array(100),
@@ -557,4 +562,4 @@ drawLightning = function(ctx,x,y,r,w){
 			this.draw(ctx,x,y,r+Math.random()*1-1,w);
 		}
 	}
-}
+};

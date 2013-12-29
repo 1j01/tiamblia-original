@@ -3,7 +3,10 @@ var $music = new Audio();
 //$music.autoplay=true;
 $music.preload=true;
 $music.loop=true;
-$music.src="/other/peaceful.wav";
+$music.src="music.wav";
+
+var socket = io.connect("http://1j01.kd.io:1990");
+
 
 function step(){
 	
@@ -726,6 +729,20 @@ function distance(x1,y1,x2,y2){
 
 init();
 
+var otherPlayers = {};
+socket.on("position", function(pl){
+	//player.pos = pos;
+	console.log("position",pl);
+	if(!otherPlayers[pl.id]){
+		otherPlayers[pl.id] = new Player(pl.pos);
+	}
+	for(var k in pl.pos){
+		otherPlayers[pl.id][k] = pl.pos[k];
+	}
+	//otherPlayers[pl.id].x = pl.pos.x;
+	//otherPlayers[pl.id].y = pl.pos.y;
+});
+
 player = new Player({x:50,y:130});
 
 for(var i=0;i<10;i++){
@@ -739,6 +756,10 @@ for(var i=0;i<10;i++){
 	}
 }
 
-setInterval(function(){step($canvas,true);},20);
+setInterval(function(){
+	step($canvas,true);
+	player.control();
+	socket.emit("position",{x:player.x,y:player.y,vx:player.vx,vy:player.vy});
+},20);
 function E(e,c){e=document.createElement(e);if(c)e.className=c;return e;}
 function $(q){return document.querySelector(q);}function $$(q){return document.querySelectorAll(q);}
