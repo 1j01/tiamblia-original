@@ -1,11 +1,11 @@
 
 #gui-overlay {
-	position:absolute;
-	left:0;top:0;bottom:0;right:0;
-	margin:0;padding:0;border:0;
-	overflow:hidden;
-	pointer-events:none;
-    font-family: Arial, Helvetica;
+	position: absolute;
+	left: 0; top: 0; bottom: 0; right: 0;
+	margin: 0; padding: 0; border: 0;
+	overflow: hidden;
+	pointer-events: none;
+	font-family: Arial, Helvetica, sans-serif;
 }
 #gui-overlay .modal {
 	pointer-events: all;
@@ -15,65 +15,67 @@
 	pointer-events: none !important;
 }
 .modal * {
-    outline: none;
-    border: none;
-    cursor: default;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
+	outline: none;
+	border: none;
+	cursor: default;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
 }
-.modal ::-moz-focus-inner {border:0;}
+.modal ::-moz-focus-inner {
+	border: 0;
+}
 
 .modal textarea,
 .modal input,
 .modal p {
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
-    cursor: auto;
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+	cursor: auto;
 }
 .modal.dragging textarea,
 .modal.dragging input {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor: default;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor: default;
 }
 .modal {
 	-webkit-transition: opacity .5s ease-in-out;
 	-moz-transition: opacity .5s ease-in-out;
 	-o-transition: opacity .5s ease-in-out;
 	transition: opacity .5s ease-in-out;
-    position: absolute;
-    background: #000;
-    background: rgba(0,0,0,0.3);
-    color: white;
-    opacity: 0.8;
-    outline: 1px solid rgba(255,255,255,0.4);
-    no-outline-offset: 4px;
-    no-box-shadow: 0 0 1px 4px rgba(0,0,0,0.5);
-    padding: 4px;
+	position: absolute;
+	background: #000;
+	background: rgba(0,0,0,0.3);
+	color: white;
+	opacity: 0.8;
+	outline: 1px solid rgba(255,255,255,0.4);
+	no-outline-offset: 4px;
+	no-box-shadow: 0 0 1px 4px rgba(0,0,0,0.5);
+	padding: 4px;
 }
 .modal:hover, .modal.dragging {
-    opacity: 1;
+	opacity: 1;
 }
 .modal.dragging {
-    -webkit-transition: opacity .8s ease;
-    -moz-transition: opacity .8s ease;
-    -o-transition: opacity .8s ease;
-    transition: opacity .8s ease;
+	-webkit-transition: opacity .8s ease;
+	-moz-transition: opacity .8s ease;
+	-o-transition: opacity .8s ease;
+	transition: opacity .8s ease;
 }
 .modal .content {
 	background: #000;
-    background: rgba(0,0,0,0.9);
-    color: #AAA;
+	background: rgba(0,0,0,0.9);
+	color: #AAA;
 }
 .modal .content.resizable {
 	resize: both;
@@ -83,24 +85,24 @@
 }
 .modal .titlebar {
 	background: #000;
-    background: rgba(0,0,0,0.5);
-    cursor: move;
-    border-bottom: 1px solid rgba(255,255,255,0.4);
+	background: rgba(0,0,0,0.5);
+	cursor: move;
+	border-bottom: 1px solid rgba(255,255,255,0.4);
 }
 .modal .title {
 	cursor: move;
-    color: #CCC;
-    font-weight: lighter;
+	color: #CCC;
+	font-weight: lighter;
 }
 .modal:hover .titlebar {
 	background: #000;
-    background: rgba(0,0,0,0.7);
+	background: rgba(0,0,0,0.7);
 }
 .modal .titlebar.titlebar.titlebar:hover,
 .modal.dragging .titlebar.titlebar.titlebar {
 	background: rgb(66,66,66);
-    background: rgba(55,55,55,0.8);
-    color: #FFF;
+	background: rgba(55,55,55,0.8);
+	color: #FFF;
 }
 .modal .close-x {
 	cursor: pointer;
@@ -138,28 +140,28 @@
 .modal .button,
 .modal input[type="submit"]{
 	background: #000;
-    background: rgba(0,0,0,0.1);
-    color: #CCC;
-    border: 0;
-    cursor: pointer;
-    -webkit-transition-duration: .1s;
-    -moz-transition-duration: .1s;
-    -o-transition-duration: .1s;
-    outline: 1px solid rgba(255,255,255,0.4);
+	background: rgba(0,0,0,0.1);
+	color: #CCC;
+	border: 0;
+	cursor: pointer;
+	-webkit-transition-duration: .1s;
+	-moz-transition-duration: .1s;
+	-o-transition-duration: .1s;
+	outline: 1px solid rgba(255,255,255,0.4);
 }
 .modal button:hover,
 .modal .button:hover,
 .modal input[type="submit"]:hover {
 	background: #555;
-    background: rgba(255,255,255,0.2);
-    color: white;
+	background: rgba(255,255,255,0.2);
+	color: white;
 }
 .modal button:active,
 .modal .button:active,
 .modal input[type="submit"]:active {
 	background: #333;
-    background: rgba(255,255,255,0.1);
-    color: #FFF;
+	background: rgba(255,255,255,0.1);
+	color: #FFF;
 }
 .modal input, 
 .modal textarea {
@@ -218,7 +220,11 @@
 	background: rgba(0,200,255,0.5);
 }
 .modal ul,
-.modal ol {list-style:none;margin:0;padding:0;}
+.modal ol {
+	list-style:none;
+	margin: 0;
+	padding: 0;
+}
 
 
 ::-webkit-scrollbar {
