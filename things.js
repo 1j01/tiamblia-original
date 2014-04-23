@@ -19,10 +19,10 @@ Thing = function(/*o1,o2,o3,...*/){
 			ctx.fillRect(this.x,this.y,this.w,this.h);
 		},
 		step: function(){
-		    var thoust = this;
-		    function col(x,y){
-		        return collisionRectangle(x-thoust.w/2,y,thoust.w,thoust.h);
-		    }
+			var thoust = this;
+			function col(x,y){
+				return collisionRectangle(x-thoust.w/2,y,thoust.w,thoust.h);
+			}
 			if(col(this.x,this.y)){
 				if(this.goDown){
 					this.y+=50;
@@ -442,7 +442,7 @@ Cloud = function(o){
 		draw: function(ctx){
 			ctx.fillStyle="#A9D9FA";
 			for(var i=0;i<20;i++){
-			    ctx.beginPath();
+				ctx.beginPath();
 				ctx.arc(
 					this.simplex.noise(5+i,this.t+i*3.92)*this.w+this.x+this.w/2,
 					this.simplex.noise(26+i,this.t+i*2.576)*this.h+this.y+this.h/2,
@@ -452,7 +452,7 @@ Cloud = function(o){
 					0,Math.PI*2,
 					false
 				);
-			    ctx.fill();
+				ctx.fill();
 			}
 		},
 		w: 45+Math.random()*50,

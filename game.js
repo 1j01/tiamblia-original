@@ -47,13 +47,13 @@ function step(){
 			/// Draw and step stuff.
 			//for(var i=0;i<things.length;i++){
 			for(var i=things.length-1;i>=0;i--){
-                var thing = things[i];
+				var thing = things[i];
 				thing.stepdraw(ctx);
 				
-                //ctx.fillStyle = "#F0F";
-                //ctx.fillRect((thing.x),(thing.y-50),1,50);
-                //ctx.fillRect((thing.x-50),(thing.y),100,1);
-                
+				//ctx.fillStyle = "#F0F";
+				//ctx.fillRect((thing.x),(thing.y-50),1,50);
+				//ctx.fillRect((thing.x-50),(thing.y),100,1);
+				
 				if(thing.poof){
 					things.splice(i,1);
 				}
@@ -180,7 +180,7 @@ function drawGround(){
 			ctx.fillStyle = "rgb(250,250,200)";
 		}else if(terrain.polys[i].type=="rock"){
 			ctx.fillStyle = "rgb(100,100,100)";
-		}else  continue;
+		}else continue;
 		ctx.beginPath();
 		ctx.moveTo(p[0].x,p[0].y);
 		for(var j=0;j<p.length;j++){
