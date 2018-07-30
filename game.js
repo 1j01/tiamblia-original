@@ -439,10 +439,12 @@ function init(){
 			startEditing();
 		}
 		$canvas.className=leveledit?"le":"g";
+		document.getElementById("toggle-edit").classList[leveledit?"add":"remove"]("selected");
 	}
 
 	function toggleFly(){
 		fly=!fly;
+		document.getElementById("toggle-fly").classList[fly?"add":"remove"]("selected");
 	}
 
 	document.body.addEventListener('keydown', function(e){
