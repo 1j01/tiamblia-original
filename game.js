@@ -617,16 +617,19 @@ function startEditing(){
 	var $terrainButtonGroup = E("div", "button-group");
 	mTerrain.$c.appendChild($terrainButtonGroup);
 
+	function selectTypeButton($button){
+		var $$typeButtons=$$(".type");
+		for(var j in Array.from($$typeButtons)){
+			$$typeButtons[j].classList.remove("selected");
+		}
+		$button.classList.add("selected");
+	}
 	for(var i=0;i<terraintypes.length;i++){
 		var name=terraintypes[i];
 		var $button=E("button","tt type"+((le_tool=="terrain" && le_tti==i)?" selected":""));
 		$button.onclick=function(i){
 			return function(){
-				var $$tts=$$(".type");
-				for(var j in $$tts){
-					$$tts[j].className="tt type";
-				}
-				this.className="selected tt type";
+				selectTypeButton(this);
 				le_tti=i;
 				le_tool="terrain";
 			};
@@ -651,11 +654,7 @@ function startEditing(){
 		var $button=E("button","et type"+((le_tool=="place" && le_eti==i)?" selected":""));
 		$button.onclick=function(i){
 			return function(){
-				var $$ets=$$(".type");
-				for(var j in $$ets){
-					$$ets[j].className="et type";
-				}
-				this.className="selected et type";
+				selectTypeButton(this);
 				le_eti=i;
 				le_tool="place";
 			};
