@@ -423,20 +423,36 @@ function init(){
 
 	$canvas = document.createElement("canvas");
 	document.body.appendChild($canvas);
-	
+
+	// mControls = new Modal()
+	// 	.title("Controls")
+	// 	.position("bottom right");	
+	// mControls.$c.appendChild(document.getElementById("controls"));
+
+	document.getElementById("toggle-edit").onclick = toggleEdit;
+	document.getElementById("toggle-fly").onclick = toggleFly;
+
+	function toggleEdit(){
+		if(leveledit){
+			stopEditing();
+		}else{
+			startEditing();
+		}
+		$canvas.className=leveledit?"le":"g";
+	}
+
+	function toggleFly(){
+		fly=!fly;
+	}
+
 	document.body.addEventListener('keydown', function(e){
 		if(!keys[e.keyCode]){
 			switch(String.fromCharCode(e.keyCode)){
 				case "E":
-					if(leveledit){
-						stopEditing();
-					}else{
-						startEditing();
-					}
-					$canvas.className=leveledit?"le":"g";
+					toggleEdit();
 				break;
 				case "F":
-					fly=!fly;
+					toggleFly();
 				break;
 				case "M":
 					$music.paused?

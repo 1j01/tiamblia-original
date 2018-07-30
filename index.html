@@ -4,15 +4,27 @@
 )'o=o=o=o=o=o=o=o=o=o=o=o=o=o-->
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"/>
-<title>Tiamblia (original game-like world doodle)</title><style>
+<title>Tiamblia (original game-like world doodle)</title>
+<style>
 canvas,body,html{margin:0;padding:0;overflow:hidden;background:#000}.le{cursor:cell;}*{border:0}
 .i{border-bottom:5px solid #000 !important;-webkit-transition:all .2s ease;transition:all .2s ease;cursor:pointer !important;}
 .i:hover{border-bottom:5px solid #aaf !important;}.selected.selected{border-bottom:5px solid #0ff !important;}
 iframe{position:fixed;bottom:-510px;right:10px;width:700px;height:500px;opacity:0.1;transition:all .5s ease-in-out;}
-.active{bottom:10px;opacity:0.9;}</style>
+.active{bottom:10px;opacity:0.9;}
+#controls{position:fixed;bottom:10px;right:10px;padding:1em;transition:all .5s ease-in-out;background:rgba(0,0,0,0.5);color:white;font-family:sans-serif}
+#controls p{margin:1em;}
+#controls kbd{background:rgba(135,135,135,0.5);padding:0.2em;border-radius:3px;font:inherit}
+#controls button{background:0;border:0;color:inherit;font:inherit;margin:0;padding:0;text-decoration:underline;font-weight:bold;cursor:pointer}
+</style>
 <link href="lib/gui.css" rel="stylesheet"/>
 <script src="lib/gui.js"></script></head><body>
 <script>gui.overlay();onerror=gui.error;</script>
+<div id="controls">
+	<p><kbd>E</kbd> to <button id="toggle-edit">Edit</button></p>
+	<p><kbd>F</kbd> to <button id="toggle-fly">Fly</button></p>
+	<p>Arrows / <kbd>WASD</kbd> to move</p>
+	<p>Down / <kbd>S</kbd> to mount/unmount a steed</p>
+</div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="lib/simplex.js"></script>
 <script src="things.js"></script>
