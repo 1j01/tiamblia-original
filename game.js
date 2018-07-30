@@ -424,10 +424,13 @@ function init(){
 	$canvas = document.createElement("canvas");
 	document.body.appendChild($canvas);
 
+	var controlsPanel = document.getElementById("controls");
+
 	mControls = new Modal()
 		.title("Controls")
 		.position("bottom right");	
-	mControls.$c.appendChild(document.getElementById("controls"));
+	mControls.$c.appendChild(controlsPanel);
+	controlsPanel.classList.remove("floating-fixedly");
 
 	document.getElementById("toggle-edit").onclick = toggleEdit;
 	document.getElementById("toggle-fly").onclick = toggleFly;

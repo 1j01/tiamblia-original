@@ -15,18 +15,19 @@ button.entity-type{padding-top:5px !important;}
 button img{vertical-align: bottom;}
 iframe{position:fixed;bottom:-510px;right:10px;width:700px;height:500px;opacity:0.1;transition:all .5s ease-in-out;}
 .active{bottom:10px;opacity:0.9;}
-#controls:not(.modal #controls){position:fixed;bottom:10px;right:10px;padding:1em;transition:all .5s ease-in-out;background:rgba(0,0,0,0.5);color:white;font-family:sans-serif;}
+#controls.floating-fixedly{position:fixed;bottom:10px;right:10px;padding:1em;background:rgba(0,0,0,0.8);color:white;font-family:sans-serif;}
 #controls p{margin:0;padding:0.5em 1em;}
 #controls{padding:0.5em 0;}
 #controls kbd{background:rgba(135,135,135,0.5);padding:0.2em;border-radius:3px;font:inherit;}
-#controls button{background:0;border:0;outline:0;font:inherit;margin:0;padding:0;text-decoration:underline;font-weight:bold;cursor:pointer;transition:none;}
+#controls button{background:0;border:0;outline:0;font:inherit;margin:0;padding:0;text-decoration:underline;font-weight:bold;color:#ccc;cursor:pointer;transition:none;}
+#controls button:hover{color:#fff;}
 #controls button:active{outline:1px solid rgba(0,135,135,0.5);outline-offset:0.2em;}
-#controls button.selected{color:#1F5}
+#controls button.selected{color:#1f5}
 </style>
 <link href="lib/gui.css" rel="stylesheet"/>
 <script src="lib/gui.js"></script></head><body>
 <script>gui.overlay();onerror=gui.error;</script>
-<div id="controls">
+<div id="controls" class="floating-fixedly">
 	<p><kbd>E</kbd> to <button id="toggle-edit">Edit</button></p>
 	<p><kbd>F</kbd> to <button id="toggle-fly">Fly</button></p>
 	<p>Arrows / <kbd>WASD</kbd> to move</p>
