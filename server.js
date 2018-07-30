@@ -13,19 +13,22 @@ var players = [];
 var UID = 0;
 
 io.on("connection",function(socket){
-	console.log('a user connected');
 
 	var player = {socket:socket, id:UID++};
 	players.push(player);
+	console.log(`a user connected, now ${players.length} player${players.length === 1 ? "" : "s"}`);
 	
-	//socket.emit("ok",);
+	socket.on('disconnect', function(){
+		var index = players.indexOf(player);
+		if(index >= 0){
+			players.splice(index, 1);
+		}
+		console.log(`user disconnected, now ${players.length} player${players.length === 1 ? "" : "s"}`);
+	});
+
 	socket.on("position",function(pos){
 		player.pos = pos;
 		
-		//io.sockets.emit("position",{pid:player.pid});
 		socket.broadcast.volatile.emit("position",{id:player.id, pos:player.pos});
-		
-		//console.log("position",pos,"id",player.id);
 	});
-	
 });
