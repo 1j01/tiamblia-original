@@ -7,9 +7,12 @@
 <title>Tiamblia (original game-like world doodle)</title>
 <style>
 canvas,body,html{margin:0;padding:0;overflow:hidden;background:#000;}.le{cursor:cell;}*{border:0;}
-.button-group button{padding-bottom:2px;border-bottom:5px solid #000 !important;border-top:5px solid transparent !important;outline:0 !important;-webkit-transition:all .2s ease;transition:all .2s ease;cursor:pointer !important;}
-.button-group button:hover{border-bottom:5px solid #aaf !important;}
-.button-group button.selected{border-bottom:5px solid #0ff !important;}
+button.type{border-bottom:5px solid #000 !important;outline:0 !important;-webkit-transition:all .2s ease;transition:all .2s ease;cursor:pointer !important;}
+button.type:hover{border-bottom:5px solid #aaf !important;}
+button.type.selected{border-bottom:5px solid #0ff !important;}
+button.tt{padding:0 !important}
+button.et{border-top:5px solid transparent !important;}
+button img{vertical-align: bottom;}
 iframe{position:fixed;bottom:-510px;right:10px;width:700px;height:500px;opacity:0.1;transition:all .5s ease-in-out;}
 .active{bottom:10px;opacity:0.9;}
 #controls:not(.modal #controls){position:fixed;bottom:10px;right:10px;padding:1em;transition:all .5s ease-in-out;background:rgba(0,0,0,0.5);color:white;font-family:sans-serif;}
