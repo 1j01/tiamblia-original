@@ -1,19 +1,20 @@
-var io = require("socket.io").listen(1990,{log:false});
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.use(express.static(__dirname));
+
+http.listen(3000, function(){
+	console.log('listening on *:3000');
+});
 
 var players = [];
 var UID = 0;
 
-io.configure(function(){
-	io.set('transports', [
-		'websocket',
-		'flashsocket',
-		//'htmlfile',
-		//'xhr-polling',
-		//'jsonp-polling',
-	]);
-});
+io.on("connection",function(socket){
+	console.log('a user connected');
 
-io.sockets.on("connection",function(socket){
 	var player = {socket:socket, id:UID++};
 	players.push(player);
 	

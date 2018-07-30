@@ -6,7 +6,7 @@ $music.loop=true;
 $music.src="music.wav";
 
 if(typeof io !== "undefined"){
-	var socket = io.connect("http://1j01.kd.io:1990");
+	var socket = io();
 }
 
 function step(){
