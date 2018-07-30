@@ -424,10 +424,10 @@ function init(){
 	$canvas = document.createElement("canvas");
 	document.body.appendChild($canvas);
 
-	// mControls = new Modal()
-	// 	.title("Controls")
-	// 	.position("bottom right");	
-	// mControls.$c.appendChild(document.getElementById("controls"));
+	mControls = new Modal()
+		.title("Controls")
+		.position("bottom right");	
+	mControls.$c.appendChild(document.getElementById("controls"));
 
 	document.getElementById("toggle-edit").onclick = toggleEdit;
 	document.getElementById("toggle-fly").onclick = toggleFly;
