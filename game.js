@@ -626,7 +626,7 @@ function startEditing(){
 	}
 	for(var i=0;i<terraintypes.length;i++){
 		var name=terraintypes[i];
-		var $button=E("button","tt type"+((le_tool=="terrain" && le_tti==i)?" selected":""));
+		var $button=E("button","terrain-type type"+((le_tool=="terrain" && le_tti==i)?" selected":""));
 		$button.onclick=function(i){
 			return function(){
 				selectTypeButton(this);
@@ -651,7 +651,7 @@ function startEditing(){
 
 	for(var i=0;i<entitytypes.length;i++){
 		var name=entitytypes[i];
-		var $button=E("button","et type"+((le_tool=="place" && le_eti==i)?" selected":""));
+		var $button=E("button","entity-type type"+((le_tool=="place" && le_eti==i)?" selected":""));
 		$button.onclick=function(i){
 			return function(){
 				selectTypeButton(this);
