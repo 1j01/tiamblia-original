@@ -614,50 +614,56 @@ function startEditing(){
 		.title("Terrain")
 		.position("top left");
 	
+	var $terrainButtonGroup = E("div", "button-group");
+	mTerrain.$c.appendChild($terrainButtonGroup);
+
 	for(var i=0;i<terraintypes.length;i++){
 		var name=terraintypes[i];
-		var $img=E("img","tt i"+((le_tool=="terrain" && le_tti==i)?" selected":""));
-		$img.onclick=function(i){
+		var $button=E("button","tt type"+((le_tool=="terrain" && le_tti==i)?" selected":""));
+		$button.onclick=function(i){
 			return function(){
-				var $$tts=$$(".i");
+				var $$tts=$$(".type");
 				for(var j in $$tts){
-					$$tts[j].className="tt i";
+					$$tts[j].className="tt type";
 				}
-				this.className="selected tt i";
+				this.className="selected tt type";
 				le_tti=i;
 				le_tool="terrain";
 			};
 		}(i);
+		var $img=E("img");
 		$img.title=$img.alt=name;
 		$img.width=$img.height=32;
 		$img.src="images/terrain/"+name+".png";
-		
-		mTerrain.$c.appendChild($img);
+		$img.style.pointerEvents = "none";
+		$button.appendChild($img);
+		$terrainButtonGroup.appendChild($button);
 	}
 	mEntities=new Modal()
 		.title("Entities")
 		.position("bottom left");
 	
+	var $entitiesButtonGroup = E("div", "button-group");
+	mEntities.$c.appendChild($entitiesButtonGroup);
+
 	for(var i=0;i<entitytypes.length;i++){
 		var name=entitytypes[i];
-		var $img=E("img","et i"+((le_tool=="place" && le_eti==i)?" selected":""));
-		$img.onclick=function(i){
+		var $button=E("button","et type"+((le_tool=="place" && le_eti==i)?" selected":""));
+		$button.onclick=function(i){
 			return function(){
-				var $$ets=$$(".i");
+				var $$ets=$$(".type");
 				for(var j in $$ets){
-					$$ets[j].className="et i";
+					$$ets[j].className="et type";
 				}
-				this.className="selected et i";
+				this.className="selected et type";
 				le_eti=i;
 				le_tool="place";
 			};
 		}(i);
-		$img.title=$img.alt=name;
-		//$img.width=
-		$img.height=32;
+		$button.textContent=name;
 		//$img.src="images/entities/"+name+".png";
 		
-		mEntities.$c.appendChild($img);
+		$entitiesButtonGroup.appendChild($button);
 	}
 }
 function mouseXrect(x,y,w,h){
