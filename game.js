@@ -359,7 +359,7 @@ function undoable(){
 		oldterrain.entities[i]=terrain.entities[i];
 	}
 	undos.push(oldterrain);
-	console.log(redos.length);
+	// console.log(redos.length);
 	redos=[];
 }
 function undo(){
@@ -734,7 +734,7 @@ var otherPlayers = {};
 if(typeof io !== "undefined"){
 	socket.on("position", function(pl){
 		//player.pos = pos;
-		console.log("position",pl);
+		// console.log("position",pl);
 		if(!otherPlayers[pl.id]){
 			otherPlayers[pl.id] = new Player(pl.pos);
 		}
