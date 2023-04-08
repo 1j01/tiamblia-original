@@ -4,7 +4,7 @@ This is the original experiment, precursor to [Tiamblia](https://github.com/1j01
 
 You can play around with it [here](https://1j01.github.io/tiamblia-original/).
 There's no default world, so press <kbd>E</kbd> to enter editing mode and draw polygons to create some terrain.
-Right click to delete a terrain polygon. Place some trees by selecting Tree from the Entities bar and clicking where you want the bases of some trees to be.
+Right click to delete a terrain polygon. To place trees, select Tree from the Entities bar and click on the ground where you want the base of a tree to be.
 
 ## Controls
 
