@@ -6,7 +6,7 @@ Frog = function(o){
 			if(collisionRectangle(this.x,this.y+1,this.w,this.h)){
 				this.vx*=0.1;
 				if(Math.random()<0.1){
-					//jmup
+					//jump
 					this.vy = Math.random()*-5;
 					this.dir = r();
 					this.t=0;

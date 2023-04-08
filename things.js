@@ -188,7 +188,7 @@ Player = function(o){
 			
 			if(keys[38]||keys[87]||(gamepad && (gamepad.buttons[0]))){
 				if(collisionRectangle(yo.x-yo.w/2,yo.y+5,yo.w,yo.h)){
-					//jmup
+					//jump
 					yo.vy = -10;
 				}
 			}
