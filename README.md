@@ -31,7 +31,7 @@ It kind of syncs player positions, but nothing else, and it doesn't even sync th
 
 ## Music
 
-The simple music is an old guitar song I wrote, which is fun to play.
+The simple music is an old guitar song I wrote, which is fun to play. See [guitar tablature](music.tab).
 
 The generative music is based on [a web audio example](https://web.archive.org/web/20130406040338/http://chromium.googlecode.com:80/svn/trunk/samples/audio/wavetable-synth2.html),
 modified to randomize the note sequence and parameters over time.
