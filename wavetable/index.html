@@ -707,15 +707,15 @@ Note.prototype.play = function(wave, wave2, semitone, octave, time) {
 		if (ampDecayAdjust > 4) ampDecayAdjust = 4;
 		var offTime = ampAttackTime + ampDecayAdjust;
 
-		osc1.noteOn(time);
-		osc2.noteOn(time);
-		osc1.noteOff(offTime);
-		osc2.noteOff(offTime);
+		osc1.start(time);
+		osc2.start(time);
+		osc1.stop(offTime);
+		osc2.stop(offTime);
 
-		osc1Octave.noteOn(time);
-		osc2Octave.noteOn(time);
-		osc1Octave.noteOff(offTime);
-		osc2Octave.noteOff(offTime);
+		osc1Octave.start(time);
+		osc2Octave.start(time);
+		osc1Octave.stop(offTime);
+		osc2Octave.stop(offTime);
 	} else {
 		firstTime = false;
 	}
