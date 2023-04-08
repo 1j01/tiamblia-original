@@ -499,23 +499,20 @@ function Note(staticAudioRouting, isMonophonic) {
 	var osc2 = context.createOscillator();
 	var osc2Octave = context.createOscillator();
 	
-	var panner1 = context.createPanner();
-	panner1.panningModel = webkitAudioPannerNode.EQUALPOWER;
-
-	var panner2 = context.createPanner();
-	panner2.panningModel = webkitAudioPannerNode.EQUALPOWER;
+	const panner1 = new StereoPannerNode(context, { pan: -1 });
+	const panner2 = new StereoPannerNode(context, { pan: 1 });
 
 	// Amplitude envelope
-	var ampEnvelope = context.createGainNode();
+	var ampEnvelope = context.createGain();
 	ampEnvelope.gain.value = 0.0; // default value
 
 	// Filter
 	var filter = context.createBiquadFilter();
-	filter.type = 0;
+	filter.type = "lowpass";
 	filter.gain.value = 0.0; // default value
 
 	// Create note volume.
-	var noteVolume = context.createGainNode();
+	var noteVolume = context.createGain();
 	noteVolume.gain.value = 0; // start out silent until told otherwise
 
 	// Make connections
@@ -541,10 +538,11 @@ function Note(staticAudioRouting, isMonophonic) {
 
 	// Keep oscillators playing at all times if monophonic.
 	if (this.isMonophonic) {
-		osc1.noteOn(0);
-		osc2.noteOn(0);
-		osc1Octave.noteOn(0);
-		osc2Octave.noteOn(0);
+		const now = context.currentTime;
+		osc1.start(now);
+		osc2.start(now);
+		osc1Octave.start(now);
+		osc2Octave.start(now);
 	}
 	
 	// Keep track of all the nodes.
@@ -569,7 +567,7 @@ Note.prototype.setFilterValues = function() {
 	
 	filter.frequency.cancelScheduledValues(0);
 
-	filter.type = 0; // Lowpass
+	filter.type = "lowpass";
 	filter.Q.value = resonance; // !!FIXME: should be Q
 
 	var nyquist = 0.5 * context.sampleRate;
@@ -593,8 +591,8 @@ Note.prototype.setFilterValues = function() {
 		// filter.frequency.setValueAtTime(filter.frequency.value, time); // !! not correct
 	}
 
-	filter.frequency.setTargetValueAtTime(envAmountFrequency, time, filterAttack);
-	filter.frequency.setTargetValueAtTime(startFrequency, time + filterAttack, filterDecay);
+	filter.frequency.setTargetAtTime(envAmountFrequency, time, filterAttack);
+	filter.frequency.setTargetAtTime(startFrequency, time + filterAttack, filterDecay);
 }
 
 var firstTime = true;
@@ -620,57 +618,64 @@ Note.prototype.play = function(wave, wave2, semitone, octave, time) {
 	var noteVolume = this.noteVolume;
 
 	// Set oscillator pitches.
-	
+
 	var pitchFrequency = 20.0 /*440.0*/ * Math.pow(2.0, semitone / 12.0);
 	this.pitchFrequency = pitchFrequency;
-	
+
 	var table = wave.wavetable;
-	if (firstTime) osc1.setWaveTable(table);
+	// if (firstTime) osc1.setPeriodicWave(context.createPeriodicWave(table.real, table.imag));
+	if (firstTime) osc1.setPeriodicWave(wave.wavetable);
 
 	if (this.isMonophonic) {
 		osc1.frequency.setValueAtTime(pitchFrequency, time);
 	} else {
 		osc1.frequency.value = pitchFrequency;
 	}
-	osc1.detune.value = -detune1;
+	osc1.detune.setValueAtTime(-detune1, time);
 
 	var table2 = wave2.wavetable;
-	if (firstTime) osc1Octave.setWaveTable(table2);
+	// if (firstTime) osc1Octave.setPeriodicWave(context.createPeriodicWave(table2.real, table2.imag));
+	if (firstTime) osc1Octave.setPeriodicWave(wave.wavetable);
 
 	if (this.isMonophonic) {
 		osc1Octave.frequency.setValueAtTime(pitchFrequency, time);
 	} else {
 		osc1Octave.frequency.value = pitchFrequency;
 	}
-	osc1Octave.detune.value = 1200*octave - detune2;
+	osc1Octave.detune.setValueAtTime(1200 * octave - detune2, time);
 
-	if (firstTime) osc2.setWaveTable(table);
+	// if (firstTime) osc2.setPeriodicWave(context.createPeriodicWave(table.real, table.imag));
+	if (firstTime) osc2.setPeriodicWave(wave.wavetable);
 
 	if (this.isMonophonic) {
 		osc2.frequency.setValueAtTime(pitchFrequency, time);
 	} else {
 		osc2.frequency.value = pitchFrequency;
 	}
-	osc2.detune.value = detune2;
+	osc2.detune.setValueAtTime(detune2, time);
 
-	if (firstTime) osc2Octave.setWaveTable(table2);
+	// if (firstTime) osc2Octave.setPeriodicWave(context.createPeriodicWave(table2.real, table2.imag));
+	if (firstTime) osc2Octave.setPeriodicWave(wave.wavetable);
 
 	if (this.isMonophonic) {
 		osc2Octave.frequency.setValueAtTime(pitchFrequency, time);
 	} else {
 		osc2Octave.frequency.value = pitchFrequency;
 	}
-	osc2Octave.detune.value = 1200*octave + detune2;
-	
+	osc2Octave.detune.setValueAtTime(1200 * octave + detune2, time);
+
 	// Set panning amount for width spreading.
 	
 	// pan maximum from -90 -> +90 degrees
 	var x = Math.sin(0.5*Math.PI * width);
 	var z = -Math.cos(0.5*Math.PI * width);
-	panner1.panningModel = webkitAudioPannerNode.EQUALPOWER;
+
+	var panner1 = context.createPanner();
+	panner1.panningModel = "equalpower";
 	panner1.setPosition(-x, 0, z);
 
-	panner2.panningModel = webkitAudioPannerNode.EQUALPOWER;
+	var panner2 = context.createPanner();
+	panner2.panningModel = "equalpower";
 	panner2.setPosition(x, 0, z);
 
 	// Amplitude envelope
@@ -686,8 +691,8 @@ Note.prototype.play = function(wave, wave2, semitone, octave, time) {
 	var ampAttackTime = time + ampAttack;
 	
 	// Amplitude decay
-	ampEnvelope.gain.setTargetValueAtTime(1, time, ampAttack);
-	ampEnvelope.gain.setTargetValueAtTime(0, ampAttackTime, ampDecay);
+	ampEnvelope.gain.setTargetAtTime(1, time, ampAttack);
+	ampEnvelope.gain.setTargetAtTime(0, ampAttackTime, ampDecay);
 
 	// Filter
 	this.setFilterValues();
@@ -724,18 +729,20 @@ function setTempo(x) {
 
 function loadImpulseResponse(url, convolver) {
 	// Load impulse response asynchronously
-
-	var request = new XMLHttpRequest();
-	request.open("GET", url, true);
+	const request = new XMLHttpRequest();
 	request.responseType = "arraybuffer";
+	request.open("GET", url, true);
 
-	request.onload = function() { 
-		convolver.buffer = context.createBuffer(request.response, false);
-		isImpulseResponseLoaded = true;
-	}
-	request.onerror = function() { 
-		alert("error loading reverb");
-	}
+	request.onload = function () {
+		context.decodeAudioData(request.response, function (buffer) {
+			convolver.buffer = buffer;
+			isImpulseResponseLoaded = true;
+		});
+	};
+
+	request.onerror = function () {
+		console.error("Error loading reverb");
+	};
 
 	request.send();
 }
@@ -750,8 +757,8 @@ function StaticAudioRouting() {
 	loadImpulseResponse('impulse-responses/tim-warehouse/tim-stretch2.wav', convolver);
 	// loadImpulseResponse('impulse-responses/spatialized4.wav', convolver);
 
-	var convolverDry = context.createGainNode();
-	var convolverWet = context.createGainNode();
+	var convolverDry = context.createGain();
+	var convolverWet = context.createGain();
 
 	convolverDry.connect(compressor);
 	convolverWet.connect(convolver);
@@ -760,9 +767,9 @@ function StaticAudioRouting() {
 	// BPM delay through delayWaveShaper feedback loop
 	bpmDelay = new BpmDelay(context);
 
-	var delayFeedback = context.createGainNode();
-	var delayDry = context.createGainNode();
-	var delayWet = context.createGainNode();
+	var delayFeedback = context.createGain();
+	var delayDry = context.createGain();
+	var delayWet = context.createGain();
 
 	delayFeedback.gain.value = 0.5;
 	delayDry.gain.value = 0.5;
@@ -790,7 +797,7 @@ function StaticAudioRouting() {
 
 	var subsonicFilter = context.createBiquadFilter();
 	
-	subsonicFilter.type = 1; // hipass
+	subsonicFilter.type = "highpass";
 	subsonicFilter.frequency.value = 10;
 
 	subsonicFilter.connect(grungeWaveShaper.input);
@@ -839,18 +846,27 @@ StaticAudioRouting.prototype.setMainGrunge = function(driveDb) {
 }
 
 function init() {
-	context = new webkitAudioContext();
+	context = new AudioContext();
 	staticAudioRouting = new StaticAudioRouting();
 	monophonicNote = new Note(staticAudioRouting, true);
 
 	loadWaveTables();
 	
+	document.addEventListener('keydown', resumeContext, false);
+	document.addEventListener('mousedown', resumeContext, false);
+
 	document.addEventListener('keydown', onDocumentKeyDown, false);
 	document.addEventListener('keyup', onDocumentKeyUp, false);
 
 	sequence = new Sequence();
 
 	addUI();
+}
+
+function resumeContext() {
+	if (context.state === 'suspended') {
+		context.resume();
+	}
 }
 
 function setWaveTable1(name) {

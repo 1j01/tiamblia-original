@@ -89,39 +89,40 @@ Wave.prototype.getName = function() {
 }
 
 Wave.prototype.load = function(callback) {
-    var request = new XMLHttpRequest();
+    const request = new XMLHttpRequest();
     request.open("GET", this.url, true);
-    var wave = this;
-    
+    const wave = this;
+
     request.onload = function() {
         // Get the frequency-domain waveform data.
-        var f = eval('(' + request.responseText + ')');
+        // const frequencyData = JSON.parse(request.responseText);
+        // It's not quite valid JSON. It has extra commas which are not allowed.
+        const frequencyData = eval("(" + request.responseText + ")");
 
         // Copy into more efficient Float32Arrays.
-        var n = f.real.length;
-        frequencyData = { "real": new Float32Array(n), "imag": new Float32Array(n) };
-        wave.frequencyData = frequencyData;
-        for (var i = 0; i < n; ++i) {
-            frequencyData.real[i] = f.real[i];
-            frequencyData.imag[i] = f.imag[i];
+        const n = frequencyData.real.length;
+        const real = new Float32Array(n);
+        const imag = new Float32Array(n);
+        for (let i = 0; i < n; ++i) {
+            real[i] = frequencyData.real[i];
+            imag[i] = frequencyData.imag[i];
         }
-        
-        
-        wave.wavetable = wave.context.createWaveTable(frequencyData.real, frequencyData.imag);
-        // console.log("frequencyData.real.length: " + frequencyData.real.length + " : " + frequencyData.imag[0]);
+        wave.frequencyData = { real, imag };
+
+        wave.wavetable = wave.context.createPeriodicWave(real, imag);
         console.log("wavetable: " + wave.wavetable);
-        
-        // wave.createBuffers();
-        if (callback)
+
+        if (callback) {
             callback(wave);
+        }
     };
 
     request.onerror = function() {
-        alert("error loading: " + wave.url);
+        console.error("Error loading: " + wave.url);
     };
 
     request.send();
-}
+};
 
 Wave.prototype.print = function() {
     var f = this.frequencyData;
