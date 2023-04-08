@@ -467,7 +467,7 @@ function init(){
 					if(!window.$music_iframe){
 						$music_iframe=E("iframe");
 						document.body.appendChild($music_iframe);
-						$music_iframe.src="/pasta/wavetable/";
+						$music_iframe.src="wavetable/";
 					}
 					setTimeout(function(){
 						if($music_iframe.className=="active"){
@@ -481,7 +481,7 @@ function init(){
 					if(!window.$music_iframe){
 						$music_iframe=E("iframe");
 						document.body.appendChild($music_iframe);
-						$music_iframe.src="/pasta/wavetable/";
+						$music_iframe.src="wavetable/";
 					}
 				break;
 				case "Z":
